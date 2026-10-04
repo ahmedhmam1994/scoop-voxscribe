@@ -1,0 +1,25 @@
+name: Excavator
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  excavate:
+    name: Excavate
+    runs-on: windows-latest
+    steps:
+      - name: Checkout bucket
+        uses: actions/checkout@v4
+
+      - name: Check for new releases and update manifests
+        uses: ScoopInstaller/GithubActions@main
+        env:
+          GITH_EMAIL: ahmed.hmam1994@gmail.com
+          GITH_USER: ahmedhmam1994
+          GITH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SKIP_UPDATED: '1'
